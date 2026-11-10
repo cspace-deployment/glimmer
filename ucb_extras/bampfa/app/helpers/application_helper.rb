@@ -146,7 +146,7 @@ module ApplicationHelper
   end
 
   def render_csid csid, derivative
-    "https://webapps.cspace.berkeley.edu/bampfa/imageserver/blobs/#{csid}/derivatives/#{derivative}/content"
+    "#{Rails.configuration.x.imageserver_url}/blobs/#{csid}/derivatives/#{derivative}/content"
   end
 
   def render_alt_text blob_csid, document
@@ -174,8 +174,8 @@ module ApplicationHelper
             alt: render_alt_text(blob_csid, options),
             class: 'thumbclass'
           ),
-          href: "https://webapps.cspace.berkeley.edu/bampfa/imageserver/blobs/#{blob_csid}/derivatives/OriginalJpeg/content",
-          # href: "https://webapps.cspace.berkeley.edu/bampfa/imageserver/blobs/#{blob_csid}/content",
+          href: "#{Rails.configuration.x.imageserver_url}/blobs/#{blob_csid}/derivatives/OriginalJpeg/content",
+          # href: "#{Rails.configuration.x.imageserver_url}/blobs/#{blob_csid}/content",
           target: 'original',
           style: 'padding: 3px;',
           class: 'hrefclass d-inline-block')

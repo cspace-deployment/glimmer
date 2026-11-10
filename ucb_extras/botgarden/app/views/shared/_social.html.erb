@@ -5,7 +5,7 @@
   <meta property="og:title"       content="<%= @document['commonname_s'] %>" />
   <meta property="og:description" content="<%= @document['canonicalNameComplete_s'] %>" />
   <% unless @document['blob_ss'].nil? %>
-    <meta property="og:image"     content="https://webapps.cspace.berkeley.edu/botgarden/imageserver/blobs/<%= @document['blob_ss'].join('')[0...23] %>/derivatives/Medium/content"/>
+    <meta property="og:image"     content="<%= Rails.configuration.x.imageserver_url %>/blobs/<%= @document['blob_ss'].join('')[0...23] %>/derivatives/Medium/content"/>
     <meta property="twitter:image:alt" content="Image of <%= @document['commonname_s'] %> in the UC Botanical Garden collection."/>
   <% else %>
     <meta property="og:image"     content="/site_image.jpg" />

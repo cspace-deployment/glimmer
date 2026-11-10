@@ -337,4 +337,21 @@ RSpec.describe ApplicationHelper, type: :helper do
       end
     end
   end
+  context 'when IMAGESERVER_URL is set' do
+    around do |example|
+      default_url = Rails.configuration.x.imageserver_url
+      Rails.configuration.x.imageserver_url = 'https://images.example.org/cinefiles/imageserver'
+      example.run
+    ensure
+      Rails.configuration.x.imageserver_url = default_url
+    end
+
+    let(:csid) { '123abc' }
+    let(:options) { { document: SolrDocument.new({}), value: [ csid ] } }
+
+    it 'uses it for images and the original JPEG' do
+      expect(helper.render_csid(csid, 'Medium')).to eq "https://images.example.org/cinefiles/imageserver/blobs/#{csid}/derivatives/Medium/content"
+      expect(helper.render_media(options)).to have_link(href: "https://images.example.org/cinefiles/imageserver/blobs/#{csid}/derivatives/OriginalJpeg/content")
+    end
+  end
 end

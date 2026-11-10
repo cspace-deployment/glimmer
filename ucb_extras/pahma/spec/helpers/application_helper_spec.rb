@@ -266,4 +266,27 @@ RSpec.describe ApplicationHelper, type: :helper do
       end
     end
   end
+  context 'when IMAGESERVER_URL is set' do
+    around do |example|
+      default_url = Rails.configuration.x.imageserver_url
+      Rails.configuration.x.imageserver_url = 'https://images.example.org/pahma/imageserver'
+      example.run
+    ensure
+      Rails.configuration.x.imageserver_url = default_url
+    end
+
+    let(:csid) { '123abc' }
+    let(:options) { { document: SolrDocument.new({}), value: [ csid ] } }
+
+    it 'uses it for images, the original JPEG and 3-D files' do
+      expect(helper.render_csid(csid, 'Medium')).to eq "https://images.example.org/pahma/imageserver/blobs/#{csid}/derivatives/Medium/content"
+      expect(helper.render_media(options)).to have_link(href: "https://images.example.org/pahma/imageserver/blobs/#{csid}/derivatives/OriginalJpeg/content")
+      expect(helper.render_x3d_csid(options)).to have_selector "inline[url=\"https://images.example.org/pahma/imageserver/blobs/#{csid}/content\"]"
+    end
+
+    it 'does not change audio and video' do
+      expect(helper.render_audio_csid(options)).to have_selector "source[src=\"https://portal.hearstmuseum.berkeley.edu/cspace-services/blobs/#{csid}/content\"]"
+      expect(helper.render_video_csid(options)).to have_selector "source[src=\"https://portal.hearstmuseum.berkeley.edu/cspace-services/blobs/#{csid}/content\"]"
+    end
+  end
 end

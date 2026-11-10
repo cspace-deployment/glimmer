@@ -64,7 +64,7 @@ class ThumbnailPresenter < Blacklight::ThumbnailPresenter
               view_context.send(thumbnail_method, document, image_options)
             elsif thumbnail_field
               image_options['alt'] = render_thumbnail_alt_text
-              image_url = 'https://webapps.cspace.berkeley.edu/pahma/imageserver/blobs/' + thumbnail_value_from_document + '/derivatives/Medium/content'
+              image_url = "#{Rails.configuration.x.imageserver_url}/blobs/" + thumbnail_value_from_document + '/derivatives/Medium/content'
               # image_options[:width] = '200px'
               view_context.image_tag image_url, image_options if image_url.present?
             end

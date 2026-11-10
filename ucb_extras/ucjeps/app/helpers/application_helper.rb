@@ -496,7 +496,7 @@ module ApplicationHelper
   end
 
   def render_csid csid, derivative
-    "https://webapps.cspace.berkeley.edu/ucjeps/imageserver/blobs/#{csid}/derivatives/#{derivative}/content"
+    "#{Rails.configuration.x.imageserver_url}/blobs/#{csid}/derivatives/#{derivative}/content"
   end
 
   def render_status options = {}
@@ -642,7 +642,7 @@ module ApplicationHelper
       options[:value].collect do |audio_csid|
         content_tag(:audio,
           content_tag(:source, "I'm sorry; your browser doesn't support HTML5 audio in MPEG format.",
-            src: "https://webapps.cspace.berkeley.edu/ucjeps/imageserver/blobs/#{audio_csid}/content",
+            src: "#{Rails.configuration.x.imageserver_url}/blobs/#{audio_csid}/content",
             id: 'audio_csid',
             type: 'audio/mpeg'),
           controls: 'controls',
@@ -658,7 +658,7 @@ module ApplicationHelper
       options[:value].collect do |video_csid|
         content_tag(:video,
           content_tag(:source, "I'm sorry; your browser doesn't support HTML5 video in MP4 with H.264.",
-            src: "https://webapps.cspace.berkeley.edu/ucjeps/imageserver/blobs/#{video_csid}/content",
+            src: "#{Rails.configuration.x.imageserver_url}/blobs/#{video_csid}/content",
             id: 'video_csid',
             type: 'video/mp4'),
           controls: 'controls',
@@ -711,7 +711,7 @@ module ApplicationHelper
         content_tag(:x3d,
           content_tag(:scene,
             content_tag(:inline, '',
-            url: "https://webapps.cspace.berkeley.edu/ucjeps/imageserver/blobs/#{x3d_csid}/content",
+            url: "#{Rails.configuration.x.imageserver_url}/blobs/#{x3d_csid}/content",
             id: 'x3d',
             type: 'model/x3d+xml')),
         style: 'margin-bottom: 6px; height: 660px; width: 660px;')
