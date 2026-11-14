@@ -54,7 +54,7 @@ module Blacklight
               elsif thumbnail_field
                 image_options["alt"] = render_alt_text(document)
                 
-                image_url = 'https://webapps.cspace.berkeley.edu/botgarden/imageserver/blobs/' + thumbnail_value_from_document + '/derivatives/Medium/content'
+                image_url = "#{Rails.configuration.x.imageserver_url}/blobs/" + thumbnail_value_from_document + '/derivatives/Medium/content'
                 view_context.image_tag image_url, image_options if image_url.present?
               end
 

@@ -2,13 +2,13 @@
   <div id="pdf">
     <a
       class="w-100"
-      href="https://webapps.cspace.berkeley.edu/cinefiles/imageserver/blobs/<%= csid %>/content/linked_pdf:<%= current_user.to_s %>"
+      href="<%= Rails.configuration.x.imageserver_url %>/blobs/<%= csid %>/content/linked_pdf:<%= current_user.to_s %>"
       target="new"
     >
       view full size in new window
     </a>
     <object
-      data="https://webapps.cspace.berkeley.edu/cinefiles/imageserver/blobs/<%= csid %>/content/inline_pdf:<%= current_user.to_s %>"
+      data="<%= Rails.configuration.x.imageserver_url %>/blobs/<%= csid %>/content/inline_pdf:<%= current_user.to_s %>"
       class="pdf-viewer"
     >
     </object>

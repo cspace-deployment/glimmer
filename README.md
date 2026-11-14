@@ -45,3 +45,23 @@ Assets must be compiled after installing a tenant and after making changes to CS
 * Install a museum tenant (see above)
 * Compile the assets (see above)
 * `bin/rails s`
+
+## Image server URL
+
+Images, derivatives, PDFs and 3-D files are linked as `<IMAGESERVER_URL>/blobs/<csid>/...`. The base URL comes from the `IMAGESERVER_URL` environment variable, read once at boot (`ucb_extras/common/config/initializers/imageserver.rb`). When it's unset or empty, each museum uses the legacy imageserver, `https://webapps.cspace.berkeley.edu/<museum>/imageserver`.
+
+On a server, set it in the museum's Apache vhost and restart the app:
+
+```apache
+SetEnv IMAGESERVER_URL "https://images.example.org/pahma/imageserver"
+```
+
+### Switching between image servers
+
+`ucb_utils/imageserver-switch.sh` switches a deployment between the legacy imageserver and another one. The vhost holds two `SetEnv IMAGESERVER_URL` lines, the legacy one and the other one, with exactly one of them commented out. Run it as a user with sudo (not `app_cspace`), from the deployed copy of this repo:
+
+* `ucb_utils/imageserver-switch.sh status`: show both lines and the value the running app has
+* `ucb_utils/imageserver-switch.sh -n legacy`: preview a switch (shows the diff, changes nothing)
+* `ucb_utils/imageserver-switch.sh legacy` or `... new`: back up the vhost, switch, run `apache2ctl configtest` (restoring the backup if it fails), then ask before reloading Apache and restarting the app. Answering no restores the backup.
+
+The defaults are `-c /etc/apache2/sites-available/portal-qa.conf` and `-m pahma` (the app at `~app_cspace/projects/search_pahma`). Pass them for other vhosts or museums. After a switch, load a page so the app restarts, then run `status`.

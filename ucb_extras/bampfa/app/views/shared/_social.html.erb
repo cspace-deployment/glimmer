@@ -6,7 +6,7 @@
   <meta property="og:title"       content="<%= doc_title %>" />
   <meta property="og:description" content="<%= @document['artistcalc_s'] %> <%= @document['datemade_s'] %>" />
   <% unless @document['blob_ss'].nil? %>
-    <meta property="og:image"     content="https://webapps.cspace.berkeley.edu/bampfa/imageserver/blobs/<%= @document['blob_ss'].join('')[0...23] %>/derivatives/Medium/content"/>
+    <meta property="og:image"     content="<%= Rails.configuration.x.imageserver_url %>/blobs/<%= @document['blob_ss'].join('')[0...23] %>/derivatives/Medium/content"/>
     <meta property="twitter:image:alt" content="Image from <%= doc_title %>"/>
   <% else %>
     <meta property="og:image"     content="/site_image.jpg" />

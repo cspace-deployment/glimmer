@@ -11,7 +11,7 @@
     <meta property="og:creator"   content="<%= @document['objmaker_ss'].join(', ') %>" />
   <% end %>
   <% unless @document['blob_ss'].nil? %>
-    <meta property="og:image"     content="https://webapps.cspace.berkeley.edu/pahma/imageserver/blobs/<%= @document['blob_ss'].join('')[0...23] %>/derivatives/Medium/content"/>
+    <meta property="og:image"     content="<%= Rails.configuration.x.imageserver_url %>/blobs/<%= @document['blob_ss'].join('')[0...23] %>/derivatives/Medium/content"/>
 	<meta property="twitter:image:alt" content="Image for museum number <%= @document['objmusno_s'] %>"/>
   <% else %>
 	<meta property="og:image"       content="/stockton_curve_sm.jpg" />

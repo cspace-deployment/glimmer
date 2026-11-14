@@ -498,7 +498,7 @@ module ApplicationHelper
   end
 
   def render_csid csid, derivative
-    "https://webapps.cspace.berkeley.edu/pahma/imageserver/blobs/#{csid}/derivatives/#{derivative}/content"
+    "#{Rails.configuration.x.imageserver_url}/blobs/#{csid}/derivatives/#{derivative}/content"
   end
 
   def render_status options = {}
@@ -549,8 +549,8 @@ module ApplicationHelper
             alt: render_alt_text(blob_csid, options, is_external_link=true),
             class: 'thumbclass'
           ),
-          href: "https://webapps.cspace.berkeley.edu/pahma/imageserver/blobs/#{blob_csid}/derivatives/OriginalJpeg/content",
-          # href: "https://webapps.cspace.berkeley.edu/pahma/imageserver/blobs/#{blob_csid}/content",
+          href: "#{Rails.configuration.x.imageserver_url}/blobs/#{blob_csid}/derivatives/OriginalJpeg/content",
+          # href: "#{Rails.configuration.x.imageserver_url}/blobs/#{blob_csid}/content",
           target: 'original',
           style: 'padding: 4px;',
           class: 'hrefclass d-inline-block')
@@ -617,7 +617,7 @@ module ApplicationHelper
         content_tag(:x3d,
           content_tag(:scene,
             content_tag(:inline, '',
-            url: "https://webapps.cspace.berkeley.edu/pahma/imageserver/blobs/#{x3d_csid}/content",
+            url: "#{Rails.configuration.x.imageserver_url}/blobs/#{x3d_csid}/content",
             id: 'x3d',
             type: 'model/x3d+xml')),
           aria: {label: render_alt_text(x3d_csid, options)},
