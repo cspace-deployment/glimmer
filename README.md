@@ -2,6 +2,9 @@
 
 This repo contains a customized Blacklight application. It is basically a fork of the initial UCB museum [radiance](https://github.com/cspace-deployment/radiance) portals that were customized by John Lowe, upgraded to Blacklight 8 and Rails 7.
 
+For developers and ops: the [CollectionSpace hosting inventory](https://drive.google.com/file/d/1l4In1IwlmcXnb_7g05Sk5YJgMP3r6OQR/view) (PDF; UC Berkeley sign-in
+required) lists what runs today on the hosts of Glimmer, Solr, the ETL and the legacy webapps.
+
 Blacklight is a Ruby on Rails application. Refer to the Blacklight project documention for details about how to maintain and deploy applications of this sort:  http://projectblacklight.org/
 
 ## Dependencies
